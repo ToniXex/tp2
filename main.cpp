@@ -3,85 +3,106 @@
 #include <windows.h>
 
 int main() {
-	order* orders;
-	SetConsoleCP(1251); SetConsoleOutputCP(1251);
-	int newPaymentAccountPayer;
-	int newPaymentAccountRecipient;
-	int newSum;
-	int number;
-	
-	while (1) {
-		std::cout << "1 - Ð´Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ order\n";
-		std::cout << "2 - Ð²Ñ‹Ð²ÐµÑÑ‚Ð¸ ÑÐ¿Ð¸ÑÐ¾Ðº orders\n";
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
 
-		std::cin >> number;
-		switch (number)
-		{
-		case 1:
-		std::cout << "1 - Ð´Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ order\n";
-		std::cout << "2 - Ð²Ñ‹Ð²ÐµÑÑ‚Ð¸ ÑÐ¿Ð¸ÑÐ¾Ðº orders\n";
-		std::cout << "3 - Ð²Ñ‹Ð²ÐµÑÑ‚Ð¸ ÑÐ½ÑÑ‚ÑƒÑŽ ÑÑƒÐ¼Ð¼Ñƒ ÑÐ¾ ÑÑ‡ÐµÑ‚Ð° Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»ÐµÐ½Ð½Ð¾Ð³Ð¾ Ð¿Ð»Ð°Ñ‚Ð¸Ð»ÑŒÑ‰Ð¸ÐºÐ°\n";
+    int size = 0;
+    order* orders = nullptr; 
+    int newPaymentAccountPayer;
+    int newPaymentAccountRecipient;
+    int newSum;
+    int number;
+    order tempOld;
+    order temp;
+    order* newOrders;
 
-		std::cin >> number;
-		switch (number) {
-		case 1:
-			std::cout << "Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ€Ð°ÑÑ‡ÐµÑ‚Ð½Ñ‹Ð¹ ÑÑ‡ÐµÑ‚ Ð¿Ð»Ð°Ñ‚Ð¸Ð»ÑŒÑ‰Ð¸ÐºÐ°\n";
-			std::cin >> newPaymentAccountPayer;
-			std::cout << "Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ€Ð°ÑÑ‡ÐµÑ‚Ð½Ñ‹Ð¹ ÑÑ‡ÐµÑ‚ Ð¿Ð¾Ð»ÑƒÑ‡Ð°Ñ‚ÐµÐ»Ñ\n";
-			std::cin >> newPaymentAccountRecipient;
-			std::cout << "Ð¿ÐµÑ€ÐµÑ‡Ð¸ÑÐ»ÑÐµÐ¼Ð°Ñ ÑÑƒÐ¼Ð¼Ð° Ð² Ñ€ÑƒÐ±Ð»ÑÑ…\n";
-			std::cin >> newSum;
-			order* newOrders = new order[sizeof(orders) + 1];
+    int fl = 1;
 
-			for (int i = 0; i < sizeof(orders) + 1; i++) {
-				newOrders[i] =  orders[i];
-			}
-			order tempOld;
-			order temp(newPaymentAccountPayer,newPaymentAccountRecipient,newSum);
-			int fl = 1;
+    while (true) {
+        std::cout << "1 - ïåðâîå çàäàíèå\n";
+        std::cout << "2 - âòîðîå çàäàíèå\n";
+        std::cout << "3 - âûõîä\n";
 
-			for(int i = 0; i < sizeof(newOrders); i++){
-				if(fl){
-					if(newOrders[i].getPaynemtAccountPayer() >= newPaymentAccountPayer ){
-						tempOld = newOrders[i];
-						newOrders[i] = temp;
-						temp = tempOld;
-						fl = 0;
-					}
-				}
-				else{
-					tempOld = newOrders[i];
-					newOrders[i] = temp;
-					temp = tempOld;
-				}
-			}
-			delete[] orders;
-			orders = newOrders;
-			break;
-		case 2:
-			std::cout << "ÑÐ¿Ð¸ÑÐ¾Ðº:\n"
-			for(int i  = 0; i < sizeof(orders)){
-				orders[i].print();
-			}
-			break;
-			case 3:
-			int PaymentAccountPayer;
-			std::cout << "Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð¾Ð¼ÐµÑ€ Ñ€Ð°ÑÑ‡ÐµÑ‚Ð½Ð¾Ð³Ð¾ ÑÑ‡ÐµÑ‚Ð° Ð¿Ð»Ð°Ñ‚Ð¸Ð»ÑŒÑ‰Ð¸ÐºÐ°: "
-			std:: cin >> PaymentAccountPayer;
-			for(int i = 0; i < sizeof(orders); i++){
-				if(orders[i].getPaynemtAccountPayer == PaymentAccountPayer ){
-					orders[i].print();
-					break;
-				}
-			}
-			std::cout << "Ð¢Ð°ÐºÐ¾Ð³Ð¾ Ñ€Ð°Ñ‡ÐµÑ‚Ð½Ð¾Ð³Ð¾ ÑÑ‡ÐµÑ‚Ð° Ð½ÐµÑ‚";
-			break;
-	}
-	break;
-	case 2:
-	
-		}
-		
-	}
+        std::cin >> number;
+        switch (number) {
+        case 1:
+            while (true) {
+                std::cout << "1 - äîáàâèòü order\n";
+                std::cout << "2 - âûâåñòè ñïèñîê orders\n";
+                std::cout << "3 - âûâåñòè ñíÿòóþ ñóììó ñî ñ÷åòà îïðåäåëåííîãî ïëàòèëüùèêà\n";
+                std::cout << "4 - âûõîä\n";
 
+                std::cin >> number;
+                switch (number) {
+                case 1: {
+                    size++;
+                    std::cout << "Ââåäèòå ðàñ÷åòíûé ñ÷åò ïëàòèëüùèêà: ";
+                    std::cin >> newPaymentAccountPayer;
+                    temp.setPaynemtAccountPayer(newPaymentAccountPayer);
+
+                    std::cout << "Ââåäèòå ðàñ÷åòíûé ñ÷åò ïîëó÷àòåëÿ: ";
+                    std::cin >> newPaymentAccountRecipient;
+                    temp.setPaynemtAccountRecipient(newPaymentAccountRecipient);
+
+                    std::cout << "Ïåðå÷èñëÿåìàÿ ñóììà â ðóáëÿõ: ";
+                    std::cin >> newSum;
+                    temp.setSum(newSum);
+
+                    newOrders = new order[size];
+                    int position = 0;
+                    while (position < size - 1 && orders[position].getPaynemtAccountPayer() < temp.getPaynemtAccountPayer()) {
+                        newOrders[position] = orders[position];
+                        position++;
+                    }
+
+                    // Âñòàâëÿåì íîâûé ýëåìåíò â íóæíóþ ïîçèöèþ
+                    newOrders[position] = temp;
+
+                    // Êîïèðóåì îñòàâøèåñÿ ýëåìåíòû
+                    for (int i = position; i < size - 1; i++) {
+                        newOrders[i + 1] = orders[i];
+                    }
+
+
+                    delete[] orders;
+
+                    orders = newOrders;
+
+                    break;
+                }
+                case 2: {
+                    std::cout << "Ñïèñîê orders:\n";
+                    for (int i = 0; i < size; i++) {
+                        orders[i].print();
+                    }
+                    break;
+                }
+                case 3: {
+                    int PaymentAccountPayer;
+                    std::cout << "Ââåäèòå íîìåð ðàñ÷åòíîãî ñ÷åòà ïëàòåëüùèêà: ";
+                    std::cin >> PaymentAccountPayer;
+
+                    bool found = false;
+                    for (int i = 0; i < size; i++) {
+                        if (orders[i].getPaynemtAccountPayer() == PaymentAccountPayer) {
+                            orders[i].print();
+                            found = true;
+                        }
+                    }
+
+                    if (!found) {
+                        std::cout << "Òàêîãî ðàñ÷åòíîãî ñ÷åòà íåò\n";
+                    }
+
+                    break;
+                }
+                case 4:
+                    return 0;
+                }
+            }
+        case 3:
+            delete[] orders; 
+            return 0;
+        }
+    }
 }

@@ -6,6 +6,7 @@ order::order()
 	this->paymentAccountPayer = 0;
 	this->paymentAccountRecipient = 0;
 	this->sum = 0;
+
 }
 
 order::order(int paymentAccountPayer, int paymentAccountRecipient, int sum)
@@ -54,7 +55,7 @@ void order::setSum(int newSum)
 
 void order:: print()
 {
-	std::cout << "Ñ€Ð°ÑÑ‡ÐµÑ‚Ð½Ñ‹Ð¹ ÑÑ‡ÐµÑ‚ Ð¿Ð»Ð°Ñ‚Ð¸Ð»ÑŒÑ‰Ð¸ÐºÐ°: " << this->paymentAccountPayer << "\n";
-	std::cout << "Ñ€Ð°ÑÑ‡ÐµÑ‚Ð½Ñ‹Ð¹ ÑÑ‡ÐµÑ‚ Ð¿Ð¾Ð»ÑƒÑ‡Ð°Ñ‚ÐµÐ»Ñ: " << this->paymentAccountRecipient << "\n";
-	std::cout << "ÑÑƒÐ¼Ð¼Ð° Ð¿Ð»Ð°Ñ‚ÐµÐ¶Ð° Ð² Ñ€ÑƒÐ±Ð»ÑÑ…: " << this->sum << "\n";
+	std::cout << "ðàñ÷åòíûé ñ÷åò ïëàòèëüùèêà: " << this->paymentAccountPayer << "\n";
+	std::cout << "ðàñ÷åòíûé ñ÷åò ïîëó÷àòåëÿ: " << this->paymentAccountRecipient << "\n";
+	std::cout << "ñóììà ïëàòåæà â ðóáëÿõ: " << this->sum << "\n";
 }
