@@ -1,10 +1,23 @@
 #include "order.h"
 #include <iostream>
 #include <windows.h>
+#include <fstream>
+#include <string>  
 
 int main() {
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
+
+    std::fstream fin("hello.txt");
+
+    std::string strh;
+    std::string str;
+
+    while (!fin.eof()) {
+        getline(fin, strh);
+        str += strh;
+    }
+    
 
     int size = 0;
     order* orders = nullptr; 
@@ -15,7 +28,12 @@ int main() {
     order tempOld;
     order temp;
     order* newOrders;
-
+    std::string maxline = "";
+    int maxP = 0;
+    std::string templine = "";
+    int maxPtemp = 0;
+    std::string end = ".?!";
+    std::string punk = ",;:-()";
     int fl = 1;
 
     while (true) {
@@ -55,17 +73,15 @@ int main() {
                         position++;
                     }
 
-                    // Вставляем новый элемент в нужную позицию
                     newOrders[position] = temp;
 
-                    // Копируем оставшиеся элементы
                     for (int i = position; i < size - 1; i++) {
                         newOrders[i + 1] = orders[i];
                     }
 
 
                     delete[] orders;
-
+                     
                     orders = newOrders;
 
                     break;
@@ -97,11 +113,44 @@ int main() {
                     break;
                 }
                 case 4:
+                    delete[] orders;
                     return 0;
                 }
             }
+        case 2:
+            for (int i = 0; i < str.length(); i++) {
+                if (end.find(str[i]) != std::string::npos) {
+                    templine += str[i];
+                    if (maxPtemp > maxP) {
+                        maxline = templine;
+                        maxP = maxPtemp;
+                    }
+                    else if (maxPtemp == maxP) {
+                        maxline += templine;
+                        
+                    }
+                    maxPtemp = 0;
+                    templine = "";
+                }
+                else if (punk.find(str[i]) != std::string::npos) {
+                    maxPtemp++;
+                    templine += str[i];
+                }
+                else {
+                    templine += str[i];
+                }
+                
+            }
+            if (maxPtemp > maxP) {
+                maxline = templine;
+                maxP = maxPtemp;
+                templine = "";
+            }
+            else if (maxPtemp == maxP) {
+                maxline += templine;
+            }
+            std::cout << maxline;
         case 3:
-            delete[] orders; 
             return 0;
         }
     }
